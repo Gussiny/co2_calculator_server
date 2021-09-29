@@ -35,12 +35,9 @@ app.get('/', function (req, res) {
     res.send("Hola Mundo :)")
 });
 
-app.get('/test', function (req, res) {
-    connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-        if (error) throw error;
-        res.status(200).json({result: results[0].solution});
-    });
-});
+/*
+    MILES
+*/
 
 app.get('/miles', function (req, res) {
     var sqlQuery='SELECT * FROM miles';
