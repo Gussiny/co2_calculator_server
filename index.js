@@ -9,8 +9,10 @@ var connection = mysql.createConnection({
     user     : 'admin',
     password : 'proyectoaws',
     database : 'DBproyecto'
-}); 
+});
+ 
 connection.connect();
+
 // dotenv config
 dotenv.config()
 
@@ -71,7 +73,9 @@ app.post('/miles', async (req, res) => {
     }
 });
 
-// Listen in port
+// Listen in port (probar localmente)
 //app.listen(port, () => console.log(`Server listening at port: ${port}`))
 
+
+// Listen in Lambda (hacer deploy)
 module.exports.handler = serverless(app);
