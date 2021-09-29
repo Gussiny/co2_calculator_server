@@ -22,7 +22,7 @@ app.listen(port, () => console.log(`Server listening at port: ${port}`))
 ## Hacer Deploy a lambda
 Si ya tenemos listo nuestro server para hacer el deploy a Lambda:
 - Primero nos aseguramos de tener **comentadas** y **descomentadas** dentro del `index.js` 
-- Después, entonces simplemente corremos el comando:
+- Después simplemente corremos el comando:
 ```console
 serverless deploy
 ```
