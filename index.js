@@ -47,6 +47,14 @@ app.get('/miles', function (req, res) {
     });
 });
 
+app.get('/miles/:id', function (req, res) {
+    var sqlQuery=`SELECT * FROM miles WHERE id = ${req.params.id}`
+    connection.query(sqlQuery, function (error, results, fields) {
+        if (error) throw error;
+        res.status(200).json({result: results[0]});
+    });
+});
+
 app.post('/miles', async (req, res) => {
     try {
         const miles = req.body;
@@ -55,13 +63,13 @@ app.post('/miles', async (req, res) => {
 
         connection.query(sqlQuery, (error, results) => {
             if (error) throw error;
-            res.status(200).json({ message: "Miles created" })
+            res.status(201).json({ message: "Miles created" })
         });
 
     } catch (error) {
         res.status(500).json({ message: error })
     }
-})
+});
 
 // Listen in port
 //app.listen(port, () => console.log(`Server listening at port: ${port}`))
