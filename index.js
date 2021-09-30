@@ -4,13 +4,15 @@ const cors = require('cors')
 const serverless = require('serverless-http')
 const mysql = require('mysql')
 
+const {getCarbonFootprint} = require('./helper')
+
 var connection = mysql.createConnection({
     host     : 'database-project.cq1sdfmlqcje.us-east-1.rds.amazonaws.com',
     user     : 'admin',
     password : 'proyectoaws',
     database : 'DBproyecto'
 });
- 
+
 connection.connect();
 
 // dotenv config
@@ -60,12 +62,19 @@ app.get('/miles/:id', function (req, res) {
 app.post('/miles', async (req, res) => {
     try {
         const miles = req.body;
-
         const sqlQuery=`INSERT INTO miles SET car = ${miles.car}, bycicle_walking = ${miles.bycicle_walking}, public = ${miles.public}, airplane = ${miles.airplane}`
 
         connection.query(sqlQuery, (error, results) => {
             if (error) throw error;
-            res.status(201).json({ message: "Miles created" })
+            
+            // POST DONE
+            let totalFootprint = getCarbonFootprint(miles);
+            res.status(201).json(
+                { 
+                    message: "Miles created",
+                    total: totalFootprint,
+                }
+            );
         });
 
     } catch (error) {
